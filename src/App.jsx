@@ -1,6 +1,7 @@
 import "./App.css";
 import Counter from "./components/counter";
 import CreateCounter from "./components/createCounter";
+import Paint from "./components/paintCounter";
 function App() {
   return (
     <div className="App">

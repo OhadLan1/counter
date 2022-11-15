@@ -1,6 +1,8 @@
+import { render } from "@testing-library/react";
 import { useState } from "react";
 import Counter from "./counter";
 const arr = [];
+let key = 0;
 function CreateCounter() {
   const [min, setMin] = useState();
   const [max, setMax] = useState();
@@ -11,48 +13,50 @@ function CreateCounter() {
       <input
         type="number"
         onChange={(e) => {
-          setMin(e.target.value);
+          setMin(Number(e.target.value));
         }}
         placeholder="min"
       />
       <input
         type="number"
         onChange={(e) => {
-          setMax(e.target.value);
+          setMax(Number(e.target.value));
         }}
         placeholder="max"
       />
       <input
         type="number"
         onChange={(e) => {
-          setInitial(e.target.value);
+          setInitial(Number(e.target.value));
         }}
         placeholder="initial"
       />
       <input
         type="number"
         onChange={(e) => {
-          setSteps(e.target.value);
+          setSteps(Number(e.target.value));
         }}
         placeholder="steps"
       />
       <button
         className="ms-2"
         onClick={() => {
-          arr.push({ min, max, initial, steps });
-          console.log(arr);
+          arr.push({ key, min, max, initial, steps });
+          key++;
+          mapCounters(arr);
+          arr.splice(0, arr.length);
         }}
       >
         submit
       </button>
-      <div>{mapCounters(arr)}</div>
     </div>
   );
 }
 function mapCounters(arr) {
   return arr.map((counter) => {
-    return (
+    render(
       <Counter
+        key={counter.key}
         min={counter.min}
         max={counter.max}
         initial={counter.initial}
@@ -61,4 +65,5 @@ function mapCounters(arr) {
     );
   });
 }
+
 export default CreateCounter;
